@@ -35,7 +35,7 @@ public class UserController {
 		userService.addUser(u);
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/getallusers")
+	@RequestMapping(method = RequestMethod.GET, value = "/secure/getallusers")
 	public ArrayList<User> getAllUsers() {
 		return userService.getAllUsers();
 	}
@@ -44,12 +44,12 @@ public class UserController {
 	public String login(@RequestBody User login) throws ServletException {
 
 		String jwtToken = "";
-		if (login.getUserMail() == null || login.getUserPass() == null) {
+		if (login.getMail() == null || login.getPassword() == null) {
 			throw new ServletException("Please fill in username and password");
 		}
 
-		String email = login.getUserMail();
-		String password = login.getUserPass();
+		String email = login.getMail();
+		String password = login.getPassword();
 
 		User user = userService.getUserByEmail(email);
 
@@ -57,7 +57,7 @@ public class UserController {
 			throw new ServletException("User email not found.");
 		}
 
-		String pwd = user.getUserPass();
+		String pwd = user.getPassword();
 
 		if (!password.equals(pwd)) {
 			throw new ServletException("Invalid login. Please check your email and password.");

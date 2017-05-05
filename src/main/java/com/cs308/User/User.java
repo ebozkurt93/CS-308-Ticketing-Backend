@@ -8,51 +8,60 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
 public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int userID;
+	private int id;
 	@Column(nullable = false)
-	private String userName;
+	private String name;
 	@Column(nullable = false)
-	private String userPass;
+	private String surname;
 	@Column(nullable = false)
-	private String userMail;
-	@Column(nullable = false, name = "userAdress")
-	private String userAddress;
+	private String password;
+	@Column(nullable = false)
+	private String mail;
+	@Column(nullable = false)
+	private String address;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getSurname() {
+		return surname;
+	}
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getMail() {
+		return mail;
+	}
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
 	
 	
-	public int getUserID() {
-		return userID;
-	}
-	public void setUserID(int userID) {
-		this.userID = userID;
-	}
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	public String getUserPass() {
-		return userPass;
-	}
-	public void setUserPass(String userPass) {
-		this.userPass = userPass;
-	}
-	public String getUserMail() {
-		return userMail;
-	}
-	public void setUserMail(String userMail) {
-		this.userMail = userMail;
-	}
-	public String getUserAddress() {
-		return userAddress;
-	}
-	public void setUserAddress(String userAddress) {
-		this.userAddress = userAddress;
-	}
+	
 	
 }
