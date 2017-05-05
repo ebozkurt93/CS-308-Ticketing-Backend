@@ -19,8 +19,6 @@ import io.jsonwebtoken.SignatureException;
 
 public class JwtFilter extends GenericFilterBean {
 
-	// @Autowired
-	// private UserService userService;
 
 	public void doFilter(final ServletRequest req, final ServletResponse res, final FilterChain chain)
 			throws IOException, ServletException {
@@ -39,8 +37,7 @@ public class JwtFilter extends GenericFilterBean {
 				throw new ServletException("Missing or invalid Authorization header");
 			}
 
-			// if(authHeader.equals(KeyFactory.tokenMap.forEach())
-
+			
 			final String token = authHeader.substring(7);
 
 			try {

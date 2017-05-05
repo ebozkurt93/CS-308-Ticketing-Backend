@@ -2,16 +2,19 @@ package com.cs308.User;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.servlet.ServletException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cs308.config.JwtMyHelper;
 import com.cs308.config.key.KeyFactory;
 
 import io.jsonwebtoken.Jwts;
@@ -32,12 +35,51 @@ public class UserController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/register")
 	public void registerUser(@RequestBody User u) {
+		ArrayList<Role> roles = new ArrayList<Role>();
+		roles.add(Role.USER);
+		u.setRoles(roles);
 		userService.addUser(u);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/secure/getallusers")
-	public ArrayList<User> getAllUsers() {
-		return userService.getAllUsers();
+	public ArrayList<User> getAllUsers(@RequestHeader(value = "Authorization") String jwt) throws ServletException {
+		if (JwtMyHelper.getIfJWTAdmin(jwt)) {
+			return userService.getAllUsers();
+		} else
+			throw new ServletException("You are not authorized to do that");
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/secure/addadminbyemail")
+	public void addAdminByEmail(@RequestBody User u, @RequestHeader(value = "Authorization") String jwt)
+			throws ServletException {
+		if (JwtMyHelper.getIfJWTAdmin(jwt)) {
+			String email = u.getMail();
+			User user = userService.getUserByEmail(email);
+			Collection<Role> roles = user.getRoles();
+			roles.add(Role.ADMIN);
+			roles.remove(Role.USER);
+			user.setRoles(roles);
+			userService.addUser(user);
+		} else
+			new ServletException("You are not authorized to do that");
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/secure/removeadminbyemail")
+	public void removeAdminByEmail(@RequestBody User u, @RequestHeader(value = "Authorization") String jwt)
+			throws ServletException {
+		if (JwtMyHelper.getIfJWTAdmin(jwt)) {
+			String email = u.getMail();
+			if (!(JwtMyHelper.getJwtEmail(jwt).equals(email))) {
+				User user = userService.getUserByEmail(email);
+				Collection<Role> roles = user.getRoles();
+				roles.add(Role.USER);
+				roles.remove(Role.ADMIN);
+				user.setRoles(roles);
+				userService.addUser(user);
+			} else throw new ServletException("Geri bas");
+
+		} else
+			new ServletException("You are not authorized to do that");
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/login")
@@ -67,7 +109,7 @@ public class UserController {
 		long t = date.getTimeInMillis();
 		// 6 hours
 		Date endDate = new Date(t + (6 * 60 * 60000));
-		jwtToken = Jwts.builder().setSubject(email)/*.claim("roles", user.getRoles())*/.setIssuedAt(new Date())
+		jwtToken = Jwts.builder().setSubject(email).claim("roles", user.getRoles()).setIssuedAt(new Date())
 				.setExpiration(endDate).signWith(SignatureAlgorithm.HS256, KeyFactory.jwtKey).compact();
 
 		return jwtToken;
