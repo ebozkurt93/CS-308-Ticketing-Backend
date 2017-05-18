@@ -29,13 +29,9 @@ public class EventController {
 			throw new ServletException("You are not authorized to do that");
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/secure/getallevents")
-	public ArrayList<Event> getAllEvents(@RequestHeader(value = "Authorization") String jwt) throws ServletException {
-		if (JwtMyHelper.getIfJWTAdmin(jwt)) {
+	@RequestMapping(method = RequestMethod.GET, value = "/getallevents")
+	public ArrayList<Event> getAllEvents() throws ServletException {
 			return eventService.getAllEvents();
-
-		} else
-			throw new ServletException("You are not authorized to do that");
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/secure/remove")
