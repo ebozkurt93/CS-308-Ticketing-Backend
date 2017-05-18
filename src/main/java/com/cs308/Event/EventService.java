@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cs308.User.User;
-import com.cs308.User.UserRepository;
+
 
 @Service
 public class EventService {
@@ -16,6 +15,10 @@ public class EventService {
 	
 	public void addEvent(Event e){
 		eventRepository.save(e);
+	}
+	
+	public void removeEvent(Event e) {
+		eventRepository.delete(e);
 	}
 	
 	public ArrayList<Event> getAllEvents() {
@@ -28,8 +31,5 @@ public class EventService {
 	public Event getEventByName(String name) {
 		return eventRepository.findByName(name);
 	}
-	
-	
-	
 	
 }

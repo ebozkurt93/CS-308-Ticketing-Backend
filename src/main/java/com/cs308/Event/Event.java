@@ -1,6 +1,5 @@
 package com.cs308.Event;
 
-import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +17,14 @@ public class Event {
 	private String name;
 	@Column(nullable=false)
 	private String info;
+	@Column(nullable=false)
+	private String actor;
+	@Column(nullable = false)
+	private String imageUrl1;
+	@Column(nullable = false)
+	private String imageUrl2;
+	@Column(nullable = false)
+	private String videoUrl;
 	
 	public int getId() {
 		return id;
@@ -30,6 +37,38 @@ public class Event {
 	}
 	public void setInfo(String info) {
 		this.info = info;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getImageUrl1() {
+		return imageUrl1;
+	}
+	public void setImageUrl1(String imageUrl1) {
+		this.imageUrl1 = imageUrl1;
+	}
+	public String getImageUrl2() {
+		return imageUrl2;
+	}
+	public void setImageUrl2(String imageUrl2) {
+		this.imageUrl2 = imageUrl2;
+	}
+	public String getVideoUrl() {
+		return videoUrl;
+	}
+	public void setVideoUrl(String videoUrl) {
+		this.videoUrl = videoUrl;
+	}
+	public String getActor() {
+		return actor;
+	}
+	public void setActor(String actor) {
+		this.actor = actor;
 	}	
+	
+	
 }
  
