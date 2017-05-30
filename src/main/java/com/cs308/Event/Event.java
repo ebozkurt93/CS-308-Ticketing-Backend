@@ -1,11 +1,15 @@
 package com.cs308.Event;
 
+import com.cs308.Ticket.Category;
+import com.cs308.Ticket.Seat;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.ArrayList;
 
 @Entity
 @Table(name="events")
@@ -20,12 +24,15 @@ public class Event {
 	@Column(nullable=false)
 	private String actor;
 	@Column(nullable = false)
+	private ArrayList<Category> categories;
+
+	@Column(nullable = false)
 	private String imageUrl1;
 	@Column(nullable = false)
 	private String imageUrl2;
 	@Column(nullable = false)
 	private String videoUrl;
-	
+
 	public int getId() {
 		return id;
 	}
@@ -67,8 +74,14 @@ public class Event {
 	}
 	public void setActor(String actor) {
 		this.actor = actor;
-	}	
-	
-	
+	}
+
+	public ArrayList<Category> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(ArrayList<Category> categories) {
+		this.categories = categories;
+	}
 }
  

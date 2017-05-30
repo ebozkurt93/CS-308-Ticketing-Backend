@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 
+import com.cs308.Ticket.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -20,6 +21,7 @@ public class EventController {
 	@Autowired
 	private EventService eventService;
 
+	//also can be used to update an event
 	@RequestMapping(method = RequestMethod.POST, value = "/secure/add")
 	public void addEvent(@RequestHeader(value = "Authorization") String jwt, @RequestBody Event e) throws ServletException {
 		if (JwtMyHelper.getIfJWTAdmin(jwt)) {
@@ -42,5 +44,15 @@ public class EventController {
 		} else
 			throw new ServletException("You are not authorized to do that");
 	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/getcategories")
+	public ArrayList<Category> getEventCategories(@RequestBody Event e) throws ServletException {
+
+		Event event = eventService.getEventById(e.getId());
+
+		ArrayList<Category> category = event.getCategories();
+		return category;
+	}
+
 
 }
