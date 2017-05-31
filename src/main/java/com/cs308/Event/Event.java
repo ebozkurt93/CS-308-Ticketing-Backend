@@ -1,14 +1,9 @@
 package com.cs308.Event;
 
 import com.cs308.Ticket.Category;
-import com.cs308.Ticket.Seat;
+import com.cs308.User.Role;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 
 @Entity
@@ -23,7 +18,11 @@ public class Event {
 	private String info;
 	@Column(nullable=false)
 	private String actor;
-	@Column(nullable = false)
+	
+	@ElementCollection(targetClass = Category.class)
+	@JoinTable(name = "category", joinColumns = @JoinColumn(name = "id"))
+	@Column(name = "categoryId", nullable = false)
+
 	private ArrayList<Category> categories;
 
 	@Column(nullable = false)

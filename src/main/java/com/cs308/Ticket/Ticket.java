@@ -1,6 +1,8 @@
 package com.cs308.Ticket;
 
 import com.cs308.Event.Event;
+import com.cs308.User.Role;
+import com.cs308.User.User;
 
 import javax.persistence.*;
 
@@ -15,20 +17,34 @@ public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @Column(nullable=false)
-    private Category category;
-    @Column(nullable = false)
-    private Event event;
 
-    public Ticket() {
+    @ElementCollection(targetClass = Category.class)
+    @JoinTable(name = "tickets", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "categoryId", nullable = false)
+
+    private Category category;
+
+
+    @ElementCollection(targetClass = User.class)
+    @JoinTable(name = "tickets", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "userId", nullable = false)
+
+    private User user;
+    @Column(nullable = false)
+    private int seatname;
+
+    public Ticket(Category category, User user, int seatname) {
+        this.category = category;
+        this.user = user;
+        this.seatname = seatname;
     }
 
-    public Ticket(Category category, Event event) {
-        this.category = category;
-        this.event = event;
+    public Ticket() {
+
     }
 
     public int getId() {
+
         return id;
     }
 
@@ -44,11 +60,19 @@ public class Ticket {
         this.category = category;
     }
 
-    public Event getEvent() {
-        return event;
+    public User getUser() {
+        return user;
     }
 
-    public void setEvent(Event event) {
-        this.event = event;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public int getSeatname() {
+        return seatname;
+    }
+
+    public void setSeatname(int seatname) {
+        this.seatname = seatname;
     }
 }

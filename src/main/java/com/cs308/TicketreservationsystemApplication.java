@@ -15,7 +15,9 @@ public class TicketreservationsystemApplication {
 		final FilterRegistrationBean registrationBean = new FilterRegistrationBean();
 		registrationBean.setFilter(new JwtFilter());
 		registrationBean.addUrlPatterns("/user/secure/*");
-
+		registrationBean.addUrlPatterns("/ticket/secure/*");
+		registrationBean.addUrlPatterns("/category/secure/*");
+		registrationBean.addUrlPatterns("/event/secure/*");
 		return registrationBean;
 	}
 
