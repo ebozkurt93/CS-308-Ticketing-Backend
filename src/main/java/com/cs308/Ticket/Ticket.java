@@ -1,7 +1,7 @@
 package com.cs308.Ticket;
 
-import com.cs308.Event.Event;
-import com.cs308.User.Role;
+
+import com.cs308.Category.Category;
 import com.cs308.User.User;
 
 import javax.persistence.*;
@@ -18,17 +18,20 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @ElementCollection(targetClass = Category.class)
-    @JoinTable(name = "tickets", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "categoryId", nullable = false)
-
+    //@ElementCollection(targetClass = Category.class)
+    //@JoinTable(name = "tickets", joinColumns = @JoinColumn(name = "id"))
+   // @Column(name = "categoryId", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "categoryId", nullable = false)
     private Category category;
 
 
-    @ElementCollection(targetClass = User.class)
-    @JoinTable(name = "tickets", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "userId", nullable = false)
+   // @ElementCollection(targetClass = User.class)
+    //@JoinTable(name = "tickets", joinColumns = @JoinColumn(name = "id"))
+    //@Column(name = "userId", nullable = false)
 
+    @ManyToOne
+    @JoinColumn(name = "userId", nullable = false)
     private User user;
     @Column(nullable = false)
     private int seatname;

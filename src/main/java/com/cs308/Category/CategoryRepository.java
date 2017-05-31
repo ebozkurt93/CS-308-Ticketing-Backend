@@ -1,4 +1,4 @@
-package com.cs308.Ticket;
+package com.cs308.Category;
 
 import org.springframework.data.repository.CrudRepository;
 

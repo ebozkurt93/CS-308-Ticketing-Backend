@@ -1,4 +1,4 @@
-package com.cs308.Ticket;
+package com.cs308.Category;
 
 /**
  * Created by erdem on 30.05.2017.

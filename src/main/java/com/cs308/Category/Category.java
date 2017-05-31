@@ -1,7 +1,12 @@
-package com.cs308.Ticket;
+package com.cs308.Category;
 
+
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * Created by erdem on 30.05.2017.

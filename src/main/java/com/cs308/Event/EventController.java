@@ -1,10 +1,12 @@
 package com.cs308.Event;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.servlet.ServletException;
 
-import com.cs308.Ticket.Category;
+import com.cs308.Category.Category;
+import com.cs308.Category.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -21,10 +23,16 @@ public class EventController {
 	@Autowired
 	private EventService eventService;
 
+	/*
+	@Autowired
+	private CategoryService categoryService;
+	*/
+
 	//also can be used to update an event
 	@RequestMapping(method = RequestMethod.POST, value = "/secure/add")
 	public void addEvent(@RequestHeader(value = "Authorization") String jwt, @RequestBody Event e) throws ServletException {
 		if (JwtMyHelper.getIfJWTAdmin(jwt)) {
+			//Collection<Category> categories = e.getCategories();
 			eventService.addEvent(e);
 
 		} else
@@ -46,11 +54,11 @@ public class EventController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/getcategories")
-	public ArrayList<Category> getEventCategories(@RequestBody Event e) throws ServletException {
+	public Collection<Category> getEventCategories(@RequestBody Event e) throws ServletException {
 
 		Event event = eventService.getEventById(e.getId());
 
-		ArrayList<Category> category = event.getCategories();
+		Collection<Category> category = event.getCategories();
 		return category;
 	}
 

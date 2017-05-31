@@ -1,4 +1,4 @@
-package com.cs308.Ticket;
+package com.cs308.Category;
 
 
 import com.cs308.config.JwtMyHelper;
