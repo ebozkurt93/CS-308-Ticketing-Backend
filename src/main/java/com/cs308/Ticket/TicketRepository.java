@@ -11,5 +11,5 @@ public interface TicketRepository extends CrudRepository<Ticket, Long> {
     Ticket findById(int id);
     ArrayList<Ticket> findAllByUserId(int id);
 
-    ArrayList<Ticket> findAllByEventId(int id);
+    ArrayList<Ticket> findAllByCategoryId(int id);
 }
