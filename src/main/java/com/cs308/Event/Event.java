@@ -1,6 +1,8 @@
 package com.cs308.Event;
 
 import com.cs308.Category.Category;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
@@ -21,10 +23,14 @@ public class Event {
     @Column(nullable = false)
     private String actor;
 
-    @ElementCollection(targetClass = Category.class)
-    @JoinTable(name = "category", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "categoryId", nullable = false)
+    //@ElementCollection(targetClass = Category.class)
+    //@Column(name = "eventId", nullable = false)
+    //@JoinTable(name = "category", joinColumns = @JoinColumn(name = "id", nullable = false))
     //@Cascade(CascadeType.ALL)
+
+
+    @ManyToMany(cascade = javax.persistence.CascadeType.PERSIST)
+    @JoinColumn(name = "eventID", nullable = false)
     private Collection<Category> categories;
 
     @Column(nullable = false)

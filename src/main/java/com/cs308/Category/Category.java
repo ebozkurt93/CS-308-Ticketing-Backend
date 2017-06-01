@@ -23,7 +23,7 @@ public class Category {
     private int startSeat;
     @Column(nullable=false)
     private int endSeat;
-    @Column(nullable=false)
+    @Column(nullable=true)
     private String name;
     @Column(nullable=false)
     private double price;
@@ -31,4 +31,10 @@ public class Category {
     public Category() {
     }
 
+    public Category(int startSeat, int endSeat, String name, double price) {
+        this.startSeat = startSeat;
+        this.endSeat = endSeat;
+        this.name = name;
+        this.price = price;
+    }
 }
