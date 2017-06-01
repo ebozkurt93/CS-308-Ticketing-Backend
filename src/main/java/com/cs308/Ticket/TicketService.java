@@ -33,4 +33,9 @@ public class TicketService {
         return tickets;
     }
 
+    public ArrayList<Ticket> getAllTicketsByEventId(int id) {
+        ArrayList<Ticket> tickets = new ArrayList<>();
+        ticketRepository.findAllByEventId(id).forEach(tickets::add);
+        return tickets;
+    }
 }

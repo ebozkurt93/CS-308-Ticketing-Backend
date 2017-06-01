@@ -1,5 +1,6 @@
 package com.cs308.Ticket;
 
+import com.cs308.Event.Event;
 import com.cs308.User.User;
 import com.cs308.config.JwtMyHelper;
 import com.cs308.config.key.KeyFactory;
@@ -46,6 +47,16 @@ public class TicketController {
             throw new ServletException("You are not authorized to do that");
 
         } else
+            throw new ServletException("You are not authorized to do that");
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/secure/getAllTicketsForEvent")
+    public ArrayList<Ticket> getAllTicketsForEvent(@RequestHeader(value = "Authorization") String jwt, @RequestBody Event e) throws ServletException {
+        if (JwtMyHelper.getIfJWTUser(jwt)) {
+            int id = e.getId();
+
+                return ticketService.getAllTicketsByEventId(id);
+            }
             throw new ServletException("You are not authorized to do that");
     }
 

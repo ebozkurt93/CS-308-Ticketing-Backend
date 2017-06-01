@@ -10,4 +10,6 @@ import java.util.ArrayList;
 public interface TicketRepository extends CrudRepository<Ticket, Long> {
     Ticket findById(int id);
     ArrayList<Ticket> findAllByUserId(int id);
+
+    ArrayList<Ticket> findAllByEventId(int id);
 }
