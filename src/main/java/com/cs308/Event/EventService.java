@@ -22,9 +22,9 @@ public class EventService {
     private CategoryService categoryService;
 
     public void addEvent(Event e) {
-      // Collection<Category> categories = e.getCategories();
-      // categories.forEach(category -> categoryService.addCategory(category));
         eventRepository.save(e);
+      //  Collection<Category> categories = e.getCategories();
+     //   categories.forEach(category -> categoryService.addCategory(category));
     }
 
     public void removeEvent(Event e) {

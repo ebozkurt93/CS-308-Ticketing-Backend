@@ -36,18 +36,16 @@ public class Ticket {
     @Column(nullable = false)
     private int seatname;
 
+    public Ticket() {
+    }
+
     public Ticket(Category category, User user, int seatname) {
         this.category = category;
         this.user = user;
         this.seatname = seatname;
     }
 
-    public Ticket() {
-
-    }
-
     public int getId() {
-
         return id;
     }
 

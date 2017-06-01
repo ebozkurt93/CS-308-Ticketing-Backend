@@ -23,7 +23,7 @@ public class Category {
     private int startSeat;
     @Column(nullable=false)
     private int endSeat;
-    @Column(nullable=true)
+    @Column(nullable=false)
     private String name;
     @Column(nullable=false)
     private double price;
@@ -35,6 +35,46 @@ public class Category {
         this.startSeat = startSeat;
         this.endSeat = endSeat;
         this.name = name;
+        this.price = price;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getStartSeat() {
+        return startSeat;
+    }
+
+    public void setStartSeat(int startSeat) {
+        this.startSeat = startSeat;
+    }
+
+    public int getEndSeat() {
+        return endSeat;
+    }
+
+    public void setEndSeat(int endSeat) {
+        this.endSeat = endSeat;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
         this.price = price;
     }
 }
