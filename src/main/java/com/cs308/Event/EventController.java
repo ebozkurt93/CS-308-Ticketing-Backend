@@ -20,47 +20,54 @@ import com.cs308.config.JwtMyHelper;
 @RequestMapping(path = "/event")
 public class EventController {
 
-	@Autowired
-	private EventService eventService;
+    @Autowired
+    private EventService eventService;
 
-	/*
-	@Autowired
+
+    @Autowired
 	private CategoryService categoryService;
-	*/
 
-	//also can be used to update an event
-	@RequestMapping(method = RequestMethod.POST, value = "/secure/add")
-	public void addEvent(@RequestHeader(value = "Authorization") String jwt, @RequestBody Event e) throws ServletException {
-		if (JwtMyHelper.getIfJWTAdmin(jwt)) {
-			//Collection<Category> categories = e.getCategories();
-			eventService.addEvent(e);
 
-		} else
-			throw new ServletException("You are not authorized to do that");
-	}
+    //also can be used to update an event
+    @RequestMapping(method = RequestMethod.POST, value = "/secure/add")
+    public void addEvent(@RequestHeader(value = "Authorization") String jwt, @RequestBody Event e) throws ServletException {
+        if (JwtMyHelper.getIfJWTAdmin(jwt)) {
+            //Collection<Category> categories = e.getCategories();
+            eventService.addEvent(e);
 
-	@RequestMapping(method = RequestMethod.GET, value = "/getallevents")
-	public ArrayList<Event> getAllEvents() throws ServletException {
-			return eventService.getAllEvents();
-	}
+        } else
+            throw new ServletException("You are not authorized to do that");
+    }
 
-	@RequestMapping(method = RequestMethod.POST, value = "/secure/remove")
-	public void removeEvent(@RequestHeader(value = "Authorization") String jwt, @RequestBody Event e) throws ServletException {
-		if (JwtMyHelper.getIfJWTAdmin(jwt)) {
-			eventService.removeEvent(e);
+    @RequestMapping(method = RequestMethod.GET, value = "/getallevents")
+    public ArrayList<Event> getAllEvents() throws ServletException {
+        return eventService.getAllEvents();
+    }
 
-		} else
-			throw new ServletException("You are not authorized to do that");
-	}
+    @RequestMapping(method = RequestMethod.POST, value = "/geteventbyid")
+    public Event getEvent(@RequestBody Event e) throws ServletException {
+        return eventService.getEventById(e.getId());
+    }
 
-	@RequestMapping(method = RequestMethod.POST, value = "/getcategories")
-	public Collection<Category> getEventCategories(@RequestBody Event e) throws ServletException {
+    @RequestMapping(method = RequestMethod.POST, value = "/secure/remove")
+    public void removeEvent(@RequestHeader(value = "Authorization") String jwt, @RequestBody Event e) throws ServletException {
+        if (JwtMyHelper.getIfJWTAdmin(jwt)) {
+            eventService.removeEvent(e);
+            Collection<Category> categories = e.getCategories();
+            categories.forEach(category -> categoryService.removeCategory(category));
 
-		Event event = eventService.getEventById(e.getId());
+        } else
+            throw new ServletException("You are not authorized to do that");
+    }
 
-		Collection<Category> category = event.getCategories();
-		return category;
-	}
+    @RequestMapping(method = RequestMethod.POST, value = "/getcategories")
+    public Collection<Category> getEventCategories(@RequestBody Event e) throws ServletException {
+
+        Event event = eventService.getEventById(e.getId());
+
+        Collection<Category> category = event.getCategories();
+        return category;
+    }
 
 
 }

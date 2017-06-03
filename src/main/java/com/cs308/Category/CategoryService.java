@@ -4,6 +4,7 @@ package com.cs308.Category;
  * Created by erdem on 30.05.2017.
  */
 
+import com.cs308.Event.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +21,11 @@ public class CategoryService {
     }
 
 //disabled, don't enable unless really necessary
-    /*
-    public void removeCategory(Event c) {
+
+    public void removeCategory(Category c) {
         categoryRepository.delete(c);
     }
-*/
+
     public ArrayList<Category> getAllCategories() {
 
         ArrayList<Category> categories = new ArrayList<Category>();

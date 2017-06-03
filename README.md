@@ -140,8 +140,8 @@ http://localhost:8080/event/secure/add
 	"actor":"event actor",
 	"imageUrl1":"url1",
 	"imageUrl2":"url2",
-	"videoUrl1":"url3",
-	"category":[
+	"videoUrl":"url3",
+	"categories":[
 		{
 			"startSeat":"1",
 			"endSeat":"20",
