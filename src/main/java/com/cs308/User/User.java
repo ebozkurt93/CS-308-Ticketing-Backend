@@ -33,11 +33,11 @@ public class User {
 	@Column(nullable = false)
 	private String address;
 	
-	@ElementCollection(targetClass = Role.class)
-	@JoinTable(name = "role", joinColumns = @JoinColumn(name = "id"))
-	@Column(name = "role", nullable = false)
+	//@ElementCollection(targetClass = Role.class)
+	//@JoinTable(name = "role", joinColumns = @JoinColumn(name = "id"))
+	@Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private Collection<Role> roles;
+    private Role roles;
 	
 	
 	public int getId() {
@@ -76,14 +76,12 @@ public class User {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public Collection<Role> getRoles() {
+
+	public Role getRoles() {
 		return roles;
 	}
-	public void setRoles(Collection<Role> roles) {
+
+	public void setRoles(Role roles) {
 		this.roles = roles;
 	}
-	
-	
-	
-	
 }

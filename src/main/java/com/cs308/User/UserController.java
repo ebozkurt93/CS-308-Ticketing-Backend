@@ -35,9 +35,9 @@ public class UserController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/register")
 	public void registerUser(@RequestBody User u) {
-		ArrayList<Role> roles = new ArrayList<Role>();
-		roles.add(Role.USER);
-		u.setRoles(roles);
+		//ArrayList<Role> roles = new ArrayList<Role>();
+		//roles.add(Role.USER);
+		u.setRoles(Role.USER);
 		userService.addUser(u);
 	}
 
@@ -55,9 +55,9 @@ public class UserController {
 		if (JwtMyHelper.getIfJWTAdmin(jwt)) {
 			String email = u.getMail();
 			User user = userService.getUserByEmail(email);
-			Collection<Role> roles = user.getRoles();
-			roles.add(Role.ADMIN);
-			roles.remove(Role.USER);
+			Role roles = Role.ADMIN;
+			//roles.add(Role.ADMIN);
+			//roles.remove(Role.USER);
 			user.setRoles(roles);
 			userService.addUser(user);
 		} else
@@ -71,9 +71,9 @@ public class UserController {
 			String email = u.getMail();
 			if (!(JwtMyHelper.getJwtEmail(jwt).equals(email))) {
 				User user = userService.getUserByEmail(email);
-				Collection<Role> roles = user.getRoles();
-				roles.add(Role.USER);
-				roles.remove(Role.ADMIN);
+				Role roles = Role.USER;
+				//roles.add(Role.USER);
+				//roles.remove(Role.ADMIN);
 				user.setRoles(roles);
 				userService.addUser(user);
 			} else throw new ServletException("Geri bas");
