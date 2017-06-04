@@ -31,6 +31,7 @@ public class Ticket {
     //@Column(name = "userId", nullable = false)
 
     @ManyToOne
+
     @JoinColumn(name = "userId", nullable = false)
     private User user;
     @Column(nullable = false)

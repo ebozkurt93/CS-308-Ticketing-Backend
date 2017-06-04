@@ -37,22 +37,14 @@ public class TicketController {
     public ArrayList<Ticket> getAllTicketsForUser(@RequestHeader(value = "Authorization") String jwt, @RequestBody User u) throws ServletException {
         if (JwtMyHelper.getIfJWTUser(jwt)) {
             int id = u.getId();
-            String userMail = u.getMail();
-            Claims claims = Jwts.parser().setSigningKey(KeyFactory.jwtKey).parseClaimsJws(jwt).getBody();
-            String mail = claims.getSubject();
-
-            if (userMail.equals(mail)) {
                 return ticketService.getAllTicketsByUserId(id);
             }
-            throw new ServletException("You are not authorized to do that");
-
-        } else
             throw new ServletException("You are not authorized to do that");
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/secure/getAllTicketsForEvent")
     public ArrayList<Ticket> getAllTicketsForEvent(@RequestHeader(value = "Authorization") String jwt, @RequestBody Event e) throws ServletException {
-        if (JwtMyHelper.getIfJWTUser(jwt)) {
+        if (JwtMyHelper.getIfJWTUser(jwt) || JwtMyHelper.getIfJWTAdmin(jwt)) {
             int id = e.getId();
 
                 return ticketService.getAllTicketsByEventId(id);

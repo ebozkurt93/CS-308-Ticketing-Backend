@@ -41,6 +41,12 @@ public class UserController {
 		userService.addUser(u);
 	}
 
+	@RequestMapping(method = RequestMethod.GET, value = "/secure/getmyinfo")
+	public User getMyInfo(@RequestHeader(value = "Authorization") String jwt) throws ServletException {
+		String email = JwtMyHelper.getJwtEmail(jwt);
+			return userService.getUserByEmail(email);
+	}
+
 	@RequestMapping(method = RequestMethod.GET, value = "/secure/getallusers")
 	public ArrayList<User> getAllUsers(@RequestHeader(value = "Authorization") String jwt) throws ServletException {
 		if (JwtMyHelper.getIfJWTAdmin(jwt)) {
