@@ -1,6 +1,9 @@
 package com.cs308.Ticket;
 
+import com.cs308.Category.Category;
+import com.cs308.Category.CategoryService;
 import com.cs308.Event.Event;
+import com.cs308.Event.EventService;
 import com.cs308.User.User;
 import com.cs308.config.JwtMyHelper;
 import com.cs308.config.key.KeyFactory;
@@ -22,7 +25,10 @@ public class TicketController {
 
     @Autowired
     private TicketService ticketService;
-
+    @Autowired
+    private CategoryService categoryService;
+    @Autowired
+    private EventService eventService;
 
     @RequestMapping(method = RequestMethod.POST, value = "/secure/createTicket")
     public void createTicket(@RequestHeader(value = "Authorization") String jwt, @RequestBody Ticket t) throws ServletException {
@@ -79,6 +85,17 @@ public class TicketController {
 
         } else
             throw new ServletException("You are not authorized to do that");
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/getEvent")
+    public Event getEvent(@RequestBody Ticket t) throws ServletException {
+          Category c = ticketService.getTicketById(t.getId()).getCategory();
+          if (c != null) {
+              ArrayList<Category> categories = new ArrayList<>();
+              categories.add(c);
+              return eventService.getEventByCategories(categories);
+          }
+        throw new ServletException("No tickets");
     }
 
 }

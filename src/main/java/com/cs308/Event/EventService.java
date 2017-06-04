@@ -42,6 +42,11 @@ public class EventService {
         return eventRepository.findByName(name);
     }
 
+    public Event getEventByCategories(ArrayList<Category> categories) {
+        return eventRepository.findByCategoriesContains(categories);
+    }
+
+
     public Event getEventById(int id) {
         return eventRepository.findById(id);
     }
